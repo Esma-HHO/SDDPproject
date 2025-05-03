@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ads.apps.AdsConfig',
+    'user.apps.UserConfig',
 
-    'sahibesinden.ads',
-    'sahibesinden.user',
 ]
 
 MIDDLEWARE = [
