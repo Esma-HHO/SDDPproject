@@ -1,5 +1,8 @@
 from django.db import models
-from user.models import Member
+from ..user.models import Member
+
+
+
 
 class Ad(models.Model):
     #FİELDS
@@ -13,7 +16,7 @@ class Ad(models.Model):
     likedRate = models.FloatField(default=0.0)
 
     class Meta:
-        abstract = True #for making Ad class interface
+        pass #for making Ad class interface
 
 class Car(Ad):
     #FİELDS

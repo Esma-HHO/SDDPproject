@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class GeneralUser(models.Model):
     #METHODS
     def signUp(self):
@@ -14,7 +15,7 @@ class GeneralUser(models.Model):
 class Member(GeneralUser):
     #FİELDS
     userName = models.CharField(max_length=100)
-    userEmail = models.EmailFieldField(unique=True)
+    userEmail = models.EmailField(unique=True)
     userPassword = models.CharField(max_length=100)
     messagingHistory = models.TextField(blank=True) #not a real stack just for representative
     buyingHistory = models.TextField(blank=True) #not a real stack just for representative
