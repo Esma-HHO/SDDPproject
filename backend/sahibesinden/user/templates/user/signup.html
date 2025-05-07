@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kayıt Ol</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-300 via-blue-300 to-purple-400">
+
+  <div class="glass p-12 rounded-3xl shadow-2xl max-w-md w-full animate-fade-in">
+    <h2 class="text-5xl font-extrabold text-center text-white mb-10">🌟Kayıt Ol🌟</h2>
+
+    <form method="post" class="space-y-8">
+      {% csrf_token %}
+      
+      {% for field in form %}
+        <div>
+          <label class="block text-lg font-semibold text-white mb-3">{{ field.label }}</label>
+          <div class="text-xl">
+            {{ field }}
+          </div>
+          {% if field.errors %}
+            <p class="text-sm text-red-200">{{ field.errors }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit"
+              class="w-full py-3 text-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
+        🚀 Kayıt Ol
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

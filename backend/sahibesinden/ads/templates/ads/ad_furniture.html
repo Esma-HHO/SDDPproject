@@ -1,0 +1,59 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-gradient-to-br from-emerald-100 via-sky-100 to-indigo-100 rounded-3xl shadow-xl">
+  <h2 class="text-3xl font-extrabold text-center text-indigo-800 mb-6">🪑 Mobilya İlanı Ekle</h2>
+  <form method="post" class="space-y-5">
+    {% csrf_token %}
+
+    <!-- Name -->
+    <div>
+      <label class="block text-indigo-700 font-semibold mb-1">İsim</label>
+      <input type="text" name="name" class="w-full px-4 py-2 border border-indigo-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    <!-- Price -->
+    <div>
+      <label class="block text-indigo-700 font-semibold mb-1">Fiyat</label>
+      <input type="number" name="price" class="w-full px-4 py-2 border border-indigo-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    <div>
+      <label class="block text-blue-700 font-semibold mb-1">Açıklamalar</label>
+      <textarea name="comments" rows="4" class="w-full px-4 py-2 border border-blue-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+    </div>
+    
+    <!-- Bargaining -->
+    <div class="flex items-center">
+      <input type="checkbox" name="bargaining" class="mr-2 accent-indigo-600">
+      <label class="text-indigo-700 font-semibold">Pazarlık Var mı?</label>
+    </div>
+
+    <!-- Location -->
+    <div>
+      <label class="block text-indigo-700 font-semibold mb-1">Konum</label>
+      <input type="text" name="location" class="w-full px-4 py-2 border border-indigo-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    <!-- Type -->
+    <div>
+      <label class="block text-indigo-700 font-semibold mb-1">Tür</label>
+      <input type="text" name="type" class="w-full px-4 py-2 border border-indigo-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    <!-- Material -->
+    <div>
+      <label class="block text-indigo-700 font-semibold mb-1">Malzeme</label>
+      <input type="text" name="material" class="w-full px-4 py-2 border border-indigo-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    <!-- Colour -->
+    <div>
+      <label class="block text-indigo-700 font-semibold mb-1">Renk</label>
+      <input type="text" name="colour" class="w-full px-4 py-2 border border-indigo-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    <button type="submit"
+      class="w-full py-3 px-6 bg-gradient-to-r from-indigo-600 to-emerald-500 text-white text-lg font-bold rounded-xl shadow-md hover:from-indigo-700 hover:to-emerald-600 transition duration-300 transform hover:scale-105">
+      ✨ İlanı Yayınla
+    </button>
+  </form>
+</div>

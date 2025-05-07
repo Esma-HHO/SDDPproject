@@ -1,0 +1,67 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 rounded-3xl shadow-xl">
+  <h2 class="text-3xl font-extrabold text-center text-purple-800 mb-6">🚗 Araba İlanı Ekle</h2>
+  <form method="post" class="space-y-5">
+    {% csrf_token %}
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">İsim</label>
+      <input type="text" name="name" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+    </div>
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">Fiyat</label>
+      <input type="number" name="price" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+    </div>
+
+    <div class="flex items-center">
+      <input type="checkbox" name="bargaining" class="mr-2 accent-purple-600">
+      <label class="text-purple-700 font-semibold">Pazarlık Var mı?</label>
+    </div>
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">Lokasyon</label>
+      <input type="text" name="location" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+    </div>
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">Marka</label>
+      <input type="text" name="brand" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+    </div>
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">Model</label>
+      <input type="text" name="model" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+    </div>
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">Üretim Yılı</label>
+      <input type="date" name="productionYear" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+    </div>
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">Kilometre</label>
+      <input type="number" name="millage" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+    </div>
+
+    <div class="flex items-center">
+      <input type="checkbox" name="transmission" class="mr-2 accent-purple-600">
+      <label class="text-purple-700 font-semibold">Otomatik Vites</label>
+    </div>
+
+    <div>
+      <label class="block text-purple-700 font-semibold mb-1">Yakıt Türü</label>
+      <select name="fuelType" class="w-full px-4 py-2 border border-purple-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-purple-400" required>
+        <option value="Benzin">Benzin</option>
+        <option value="Dizel">Dizel</option>
+        <option value="Elektrik">Elektrik</option>
+        <option value="Hibrit">Hibrit</option>
+      </select>
+    </div>
+
+    <button type="submit"
+      class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-lg font-bold rounded-xl shadow-md hover:from-purple-700 hover:to-pink-600 transition duration-300 transform hover:scale-105">
+      🚀 İlanı Yayınla
+    </button>
+  </form>
+</div>
