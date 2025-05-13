@@ -1,6 +1,6 @@
 # ads/models.py
 from django.db import models
-from user.models import Member
+from sahibesinden.user.models import Member
 from django.conf import settings
 from django.contrib.auth.models import User
 

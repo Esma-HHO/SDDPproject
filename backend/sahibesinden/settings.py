@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ads',
-    'user',
+    'sahibesinden.ads',
+    'sahibesinden.user',
 
 ]
 
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'sahibesinden.sahibesinden.urls'
+ROOT_URLCONF = 'sahibesinden.urls'
 
 
 TEMPLATES = [
