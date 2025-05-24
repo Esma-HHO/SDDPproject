@@ -18,6 +18,13 @@
   <div class="glass p-12 rounded-3xl shadow-2xl max-w-md w-full animate-fade-in">
     <h2 class="text-5xl font-extrabold text-center text-white mb-10">🌟Kayıt Ol🌟</h2>
 
+    {% if message %}
+      <p class="text-center text-lg text-green-100 font-semibold bg-green-600 bg-opacity-40 px-4 py-2 rounded-xl mb-6">
+        {{ message }}
+      </p>
+    {% endif %}
+
+
     <form method="post" class="space-y-8">
       {% csrf_token %}
       

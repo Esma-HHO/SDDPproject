@@ -84,11 +84,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sahibinden_db',
-        'USER': 'eda',
+        'USER': 'root',
         'PASSWORD': 'Sahibinden321**',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
+
 
 
 }
@@ -134,3 +135,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'esmah.2004@gmail.com'  # Kendi Gmail adresin
+EMAIL_HOST_PASSWORD = 'ltsd ohwt wbml ghhp'  # Gmail uygulama şifresi
