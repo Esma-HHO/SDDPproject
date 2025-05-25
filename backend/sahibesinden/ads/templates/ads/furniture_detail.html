@@ -1,0 +1,16 @@
+<!-- ads/templates/ads/furniture_detail.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ furniture.title }}</title>
+</head>
+<body>
+    <h1>{{ furniture.title }}</h1>
+    <p><strong>Fiyat:</strong> {{ furniture.price }} TL</p>
+    <p><strong>Açıklama:</strong> {{ furniture.description }}</p>
+    <p><strong>İlan Sahibi:</strong> {{ furniture.owner.username }}</p>
+
+    <a href="{% url 'send_message' 'furniture' furniture.id %}">Satıcıya Mesaj Gönder</a>
+</body>
+</html>

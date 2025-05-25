@@ -1,0 +1,16 @@
+<!-- ads/templates/ads/car_detail.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ car.title }}</title>
+</head>
+<body>
+    <h1>{{ car.title }}</h1>
+    <p><strong>Fiyat:</strong> {{ car.price }} TL</p>
+    <p><strong>Açıklama:</strong> {{ car.description }}</p>
+    <p><strong>İlan Sahibi:</strong> {{ car.owner.username }}</p>
+
+    <a href="{% url 'send_message' 'car' car.id %}">Satıcıya Mesaj Gönder</a>
+</body>
+</html>

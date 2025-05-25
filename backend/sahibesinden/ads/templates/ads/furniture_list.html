@@ -1,13 +1,14 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <div class="min-h-screen bg-gradient-to-r from-green-100 to-teal-200 py-10 px-6">
     <h2 class="text-4xl font-extrabold text-teal-700 text-center mb-10">🪑 Mobilya İlanları</h2>
+
     {% if user.is_authenticated %}
-    <!-- İlan Ekle Butonları -->
-    <div class="text-center mb-8">
-        <a href="{% url 'add_furniture' %}" class="inline-block px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">
-        Mobilya İlanı Ekle
-        </a>
-    </div>
+        <!-- İlan Ekle Butonları -->
+        <div class="text-center mb-8">
+            <a href="{% url 'add_furniture' %}" class="inline-block px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">
+                Mobilya İlanı Ekle
+            </a>
+        </div>
     {% endif %}
 
     {% if furniture %}
@@ -22,28 +23,35 @@
                     <p class="text-sm text-gray-500">İlanı Ekleyen: {{ f.user.username }}</p>
 
                     {% if user.is_authenticated %}
-                      <form method="post" action="{% url 'like_furniture' f.id %}" class="mt-2">
-                        {% csrf_token %}
-                        {% if user.member in f.liked_by.all %}
-                          <button type="submit" class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                            Beğenmekten Vazgeç
-                          </button>
-                        {% else %}
-                          <button type="submit" class="text-sm bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
-                            Beğen
-                          </button>
-                        {% endif %}
-                      </form>
+                        <form method="post" action="{% url 'like_furniture' f.id %}" class="mt-2">
+                            {% csrf_token %}
+                            {% if user.member in f.liked_by.all %}
+                                <button type="submit" class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                    Beğenmekten Vazgeç
+                                </button>
+                            {% else %}
+                                <button type="submit" class="text-sm bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+                                    Beğen
+                                </button>
+                            {% endif %}
+                        </form>
                     {% endif %}
 
                     <!-- Silme Butonu: Sadece ilanı ekleyen kişi için görünür -->
                     {% if f.user == user %}
-                    <form method="post" action="{% url 'delete_furniture' f.id %}" class="mt-2">
-                        {% csrf_token %}
-                        <button type="submit" class="text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
-                            İlanı Sil
-                        </button>
-                    </form>
+                        <form method="post" action="{% url 'delete_furniture' f.id %}" class="mt-2">
+                            {% csrf_token %}
+                            <button type="submit" class="text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                                İlanı Sil
+                            </button>
+                        </form>
+                    {% else %}
+                        <!-- 👇 Satıcıyla iletişime geç butonu -->
+                        {% if user.is_authenticated %}
+                          <a href="{% url 'send_message' model_name='furniture' object_id=f.id %}" class="inline-block mt-2 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+                              Satıcıyla İletişime Geç
+                          </a>
+                        {% endif %}
                     {% endif %}
                 </div>
             {% endfor %}

@@ -2,6 +2,11 @@ from django.shortcuts import get_object_or_404, render,redirect
 from .models import Car, House, Furniture
 from .forms import CarForm, HouseForm, FurnitureForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import HttpResponse
+User = get_user_model()
 
 def home(request):
     cars = Car.objects.all()
@@ -26,14 +31,17 @@ def furniture_list(request):
     return render(request, 'ads/furniture_list.html', {'furniture': furniture})
 
 
+from .forms import CarForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
 @login_required
 def add_car(request):
     if request.method == 'POST':
         form = CarForm(request.POST)
         if form.is_valid():
             car = form.save(commit=False)
-            car.owner = request.user
-            car.user = request.user
+            car.user = request.user  # Sadece 'user' alanını kullan
             car.save()
             return redirect('home')
         else:
@@ -123,3 +131,118 @@ def delete_furniture(request, furniture_id):
         return redirect('furniture_list')  
     else:
         return redirect('furniture_list')
+
+from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import Message
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def send_message(request, model_name, object_id):
+    model = ContentType.objects.get(model=model_name).model_class()
+    listing = get_object_or_404(model, id=object_id)
+    receiver = listing.owner  # veya listing.created_by, modeline göre
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        message = Message.objects.create(
+            sender=request.user,
+            receiver=receiver,
+            content_type=ContentType.objects.get_for_model(model),
+            object_id=listing.id,
+            content=content
+        )
+
+        # Mail gönderme fonksiyonu
+        def send_message_email(sender, receiver, message):
+            subject = 'Yeni Bir Mesajınız Var!'
+            message_body = f"""
+Merhaba {receiver.username},
+
+{sender.username} size yeni bir mesaj gönderdi:
+
+"{message.content}"
+
+İlan: {listing}
+Mesajı görmek için siteye giriş yapabilirsiniz.
+
+İyi günler!
+"""
+            send_mail(
+                subject,
+                message_body,
+                settings.EMAIL_HOST_USER,
+                [receiver.email],
+                fail_silently=True,
+            )
+
+        # Alıcıya mail gönder
+        send_message_email(request.user, receiver, message)
+        # İstersen satıcı da mesajdan haberdar olmalı diyorsan, örneğin burada kendi mailine gönderebilir:
+        # send_message_email(receiver, request.user, message)
+
+        return redirect('listing_detail', model_name=model_name, id=object_id)
+
+    return render(request, 'ads/send_message.html', {'listing': listing, 'receiver': receiver})
+
+@login_required
+def inbox(request):
+    messages = Message.objects.filter(receiver=request.user).order_by('-sent_at')
+    filtered_messages = []
+    for msg in messages:
+        if msg.listing:
+            msg.model_name = msg.listing._meta.model_name
+            msg.listing_id = msg.listing.id
+            filtered_messages.append(msg)
+        else:
+            msg.model_name = None
+            msg.listing_id = None
+            filtered_messages.append(msg)
+
+    unread_count = Message.objects.filter(receiver=request.user, is_read=False).count()
+
+    return render(request, 'ads/inbox.html', {
+        'messages': filtered_messages,
+        'unread_count': unread_count,
+    })
+
+from django.shortcuts import render, get_object_or_404
+from django.apps import apps
+@login_required
+def listing_detail(request, model_name, id):
+    return render(request, "ads/message_sent.html")
+
+def reply_message(request, receiver_id):
+    receiver = get_object_or_404(User, id=receiver_id)
+    sender = request.user
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            Message.objects.create(sender=sender, receiver=receiver, content=content)
+            return redirect('inbox')
+    return render(request, 'ads/reply_message.html', {'receiver': receiver})
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+def send_message_email(sender, receiver, message):
+    subject = 'Yeni Bir Mesajınız Var!'
+    message_body = f"""
+    Merhaba {receiver.username},
+
+    {sender.username} size yeni bir mesaj gönderdi:
+
+    "{message.content}"
+
+    Mesajı görmek için siteye giriş yapabilirsiniz.
+
+    İyi günler!
+    """
+    send_mail(
+        subject,
+        message_body,
+        settings.EMAIL_HOST_USER,
+        [receiver.email],
+        fail_silently=False,
+    )

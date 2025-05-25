@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+
+
 urlpatterns = [
     #path('ads', views.ad_list,name="ad_list"),
     path('', views.home, name='home'),
@@ -16,4 +18,12 @@ urlpatterns = [
     path('car/delete/<int:car_id>/', views.delete_car, name='delete_car'),
     path('house/delete/<int:house_id>/', views.delete_house, name='delete_house'),
     path('furniture/delete/<int:furniture_id>/', views.delete_furniture, name='delete_furniture'),
+    path('send/<str:model_name>/<int:object_id>/', views.send_message, name='send_message'),
+    path('inbox/', views.inbox, name='inbox'),
+    path('reply/<int:receiver_id>/', views.reply_message, name='reply_message'),
+    path('<str:model_name>/<int:id>/', views.listing_detail, name='listing_detail')
+    
+    
+
+
 ]

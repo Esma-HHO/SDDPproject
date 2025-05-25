@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mesaj Gönder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-indigo-100 to-red-200 py-10 px-6">
+
+  <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+      <h2 class="text-2xl font-semibold mb-4">📨 {{ receiver.username }} adlı kullanıcıya mesaj gönder</h2>
+      <p class="mb-4 text-gray-600">Mesaj gönderiyorsunuz: <strong>{{ receiver.username }}</strong></p>
+      <form method="post">
+          {% csrf_token %}
+          <textarea name="content" rows="5" class="w-full p-3 border border-gray-300 rounded mb-4" placeholder="Mesajınızı yazın..."></textarea>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Gönder</button>
+      </form>
+  </div>
+
+</body>
+</html>

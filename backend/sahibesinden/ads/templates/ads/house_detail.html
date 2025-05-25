@@ -1,0 +1,16 @@
+<!-- ads/templates/ads/house_detail.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ house.title }}</title>
+</head>
+<body>
+    <h1>{{ house.title }}</h1>
+    <p><strong>Fiyat:</strong> {{ house.price }} TL</p>
+    <p><strong>Açıklama:</strong> {{ house.description }}</p>
+    <p><strong>İlan Sahibi:</strong> {{ house.owner.username }}</p>
+
+    <a href="{% url 'send_message' 'house' house.id %}">Satıcıya Mesaj Gönder</a>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <div class="max-w-2xl mx-auto mt-10 p-8 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 rounded-3xl shadow-xl">
   <h2 class="text-3xl font-extrabold text-center text-purple-800 mb-6">🚗 Araba İlanı Ekle</h2>
-  <form method="post" class="space-y-5">
+  <form method="post">
     {% csrf_token %}
 
     <div>
@@ -58,7 +58,7 @@
         <option value="Hibrit">Hibrit</option>
       </select>
     </div>
-
+  
     <button type="submit"
       class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-lg font-bold rounded-xl shadow-md hover:from-purple-700 hover:to-pink-600 transition duration-300 transform hover:scale-105">
       🚀 İlanı Yayınla
