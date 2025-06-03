@@ -41,7 +41,8 @@ def add_car(request):
         form = CarForm(request.POST)
         if form.is_valid():
             car = form.save(commit=False)
-            car.user = request.user  # Sadece 'user' alanını kullan
+            car.owner= request.user  # Sadece 'user' alanını kullan
+            car.user = request.user
             car.save()
             return redirect('home')
         else:
@@ -131,6 +132,19 @@ def delete_furniture(request, furniture_id):
         return redirect('furniture_list')  
     else:
         return redirect('furniture_list')
+    
+def show_listing_detail(request, model_name, id):
+    model = ContentType.objects.get(model=model_name).model_class()
+    listing = get_object_or_404(model, id=id)
+
+    if model_name == 'car':
+        return render(request, 'ads/car_detail.html', {'car': listing})
+    elif model_name == 'house':
+        return render(request, 'ads/house_detail.html', {'house': listing})
+    elif model_name == 'furniture':
+        return render(request, 'ads/furniture_detail.html', {'furniture': listing})
+    else:
+        return HttpResponse("Model bulunamadı", status=404)
 
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, redirect, render

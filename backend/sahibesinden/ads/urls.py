@@ -21,7 +21,8 @@ urlpatterns = [
     path('send/<str:model_name>/<int:object_id>/', views.send_message, name='send_message'),
     path('inbox/', views.inbox, name='inbox'),
     path('reply/<int:receiver_id>/', views.reply_message, name='reply_message'),
-    path('<str:model_name>/<int:id>/', views.listing_detail, name='listing_detail')
+    path('<str:model_name>/<int:id>/', views.listing_detail, name='listing_detail'),
+    path('<str:model_name>/<int:id>/detail/', views.show_listing_detail, name='show_listing_detail'),
     
     
 

@@ -1,5 +1,11 @@
 <script src="https://cdn.tailwindcss.com"></script>
-<div class="max-w-2xl mx-auto mt-10 p-8 bg-gradient-to-br from-emerald-100 via-sky-100 to-indigo-100 rounded-3xl shadow-xl">
+<div class="min-h-screen bg-gradient-to-r  from-emerald-100 to-lime-100 py-10 px-6">
+  <button 
+      onclick="window.history.back()" 
+      class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg shadow">
+      ← Geri
+  </button>
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-gradient-to-br  from-emerald-100 via-green-100 to-lime-100 rounded-3xl shadow-xl">
   <h2 class="text-3xl font-extrabold text-center text-indigo-800 mb-6">🪑 Mobilya İlanı Ekle</h2>
   <form method="post" class="space-y-5">
     {% csrf_token %}
