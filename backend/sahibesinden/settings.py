@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'user.Member'
 
 # Application definition
 
@@ -39,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ads.apps.AdsConfig',
-    'user.apps.UserConfig',
+    'sahibesinden.ads.apps.AdsConfig',
+    'sahibesinden.user.apps.UserConfig',
 
 ]
 
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'sahibesinden.sahibesinden.urls'
+ROOT_URLCONF = 'sahibesinden.urls'
 
 
 TEMPLATES = [
