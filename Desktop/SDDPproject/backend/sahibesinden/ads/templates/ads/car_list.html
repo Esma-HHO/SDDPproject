@@ -1,0 +1,66 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="min-h-screen bg-gradient-to-r from-indigo-100 to-red-200 py-10 px-6">
+  <button 
+      onclick="window.history.back()" 
+      class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg shadow">
+      ← Geri
+  </button>
+
+  <h1 class="text-4xl font-extrabold text-rose-700 text-center mb-5">🚗 Araba İlanları</h1>
+  
+  {% if user.is_authenticated %}
+    <!-- İlan Ekle Butonları -->
+    <div class="text-center mb-8">
+      <a href="{% url 'add_car' %}" class="inline-block px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">
+        Araba İlanı Ekle
+      </a>
+    </div>
+  {% endif %}
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for car in cars %}
+      <div>
+        <a href="{% url 'show_listing_detail' model_name='car' id=car.id %}">
+          <div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+            <h3 class="text-xl font-semibold text-rose-600">{{ car.brand }} {{ car.model }}</h3>
+            <p class="text-gray-700"><strong>Üretim Yılı:</strong> {{ car.productionYear }}</p>
+            <p class="text-gray-700"><strong>Kilometre:</strong> {{ car.millage }} km</p>
+            <p class="text-gray-700"><strong>Otomatik Vites:</strong> {% if car.transmission %}Evet{% else %}Hayır{% endif %}</p>
+            <p class="text-gray-700"><strong>Yakıt Türü:</strong> {{ car.fuelType }} </p>
+            <p class="text-gray-700"><strong>Konum:</strong> {{ car.location }}</p>
+            <p class="text-gray-700"><strong>Fiyat:</strong> {{ car.price }} TL</p>
+            <p class="text-sm text-gray-500 mt-2">❤️ {{ car.liked_by.count }} kişi beğendi</p>
+            <p class="text-sm text-gray-500">İlanı Ekleyen: {{ car.user.username }}</p>
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'like_car' car.id %}" class="mt-2">
+                {% csrf_token %}
+                {% if user.member in car.liked_by.all %}
+                    <button type="submit" class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                    Beğenmekten Vazgeç
+                    </button>
+                {% else %}
+                    <button type="submit" class="text-sm bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+                    Beğen
+                    </button>
+                {% endif %}
+                </form>
+            {% endif %}
+            {% if car.user == user %}
+              <form method="post" action="{% url 'delete_car' car.id %}" class="mt-2">
+                {% csrf_token %}
+                <button type="submit" class="text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                  İlanı Sil
+                </button>
+              </form>
+          </div>
+        </a>
+        
+        {% endif %}
+      </div>
+    {% empty %}
+      <p class="col-span-full text-center text-gray-500 text-lg">
+        🚫 Kayıtlı araba ilanı yok.
+      </p>
+    {% endfor %}
+  </div>
+</div>

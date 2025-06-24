@@ -1,0 +1,88 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-orange-100 py-10 px-6">
+    <h1 class="text-4xl font-extrabold text-center text-amber-600 mb-10 drop-shadow-lg">Tüm İlanlar</h1>
+    <div class="text-center mb-8">
+      {% if user.is_authenticated %}
+        <!-- Çıkış Yap Butonu -->
+        <div class="mt-4">
+          <a href="{% url 'logout' %}"
+            class="absolute top-4 right-6 px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 z-50">
+            Çıkış Yap
+          </a>
+           <!-- Mesajlarım Butonu -->
+          <a href="{% url 'inbox' %}"
+            class="absolute top-4 right-32 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 z-50">
+            Mesajlarım
+          </a>
+          
+        </div>
+      {% else %}
+        <!-- Giriş Yap Butonu -->
+        <a href="{% url 'login' %}" class="absolute top-4 right-6 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">
+          Giriş Yap
+        </a>
+      {% endif %}
+    </div>
+    <!-- Arabalar -->
+    <section class="mb-10">
+        <a href="{% url 'car_list' %}" class="text-2xl font-bold text-rose-700 mb-4 inline-block hover:underline">
+          🚗 Arabalar
+        </a>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-2">
+          {% for car in cars %}
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-rose-100 hover:shadow-xl transition">
+              <h3 class="text-xl font-semibold text-rose-600">{{ car.brand }} {{ car.model }}</h3>
+              <p class="text-gray-700 mt-2"><strong>Fiyat:</strong> {{ car.price }} TL</p>
+            </div>
+          {% empty %}
+            <p class="text-gray-600 col-span-full">Henüz araba ilanı yok.</p>
+          {% endfor %}
+        </div>
+    </section>
+  
+    <!-- Evler -->
+    <section class="mb-10">
+        <a href="{% url 'house_list' %}" class="text-2xl font-bold text-indigo-700 mb-4 inline-block hover:underline">
+          🏡 Evler
+        </a>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-2">
+          {% for house in houses %}
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-indigo-100 hover:shadow-xl transition">
+              <h3 class="text-xl font-semibold text-indigo-600">{{ house.size_m2 }} m²</h3>
+              <p class="text-gray-700 mt-2"><strong>Fiyat:</strong> {{ house.price }} TL</p>
+            </div>
+          {% empty %}
+            <p class="text-gray-600 col-span-full">Henüz ev ilanı yok.</p>
+          {% endfor %}
+        </div>
+      </section>
+      
+      <!-- Mobilyalar -->
+      <section class="mb-10">
+        <a href="{% url 'furniture_list' %}" class="text-2xl font-bold text-green-700 mb-4 inline-block hover:underline">
+          🪑 Mobilyalar
+        </a>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-2">
+          {% for item in furniture %}
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-green-100 hover:shadow-xl transition">
+              <h3 class="text-xl font-semibold text-green-600">{{ item.name }}</h3>
+              <p class="text-gray-700"><strong>Fiyat:</strong> {{ item.price }} TL</p>
+            </div>
+          {% empty %}
+            <p class="text-gray-600 col-span-full">Henüz mobilya ilanı yok.</p>
+          {% endfor %}
+        </div>
+      </section>
+      <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mesajBtn = document.querySelector('a[href="{% url 'inbox' %}"]');
+      const badge = mesajBtn ? mesajBtn.querySelector('span') : null;
+
+      if (badge) {
+        mesajBtn.addEventListener('click', () => {
+          badge.style.display = 'none'; // Tıklanınca bildirim kaybolacak
+        });
+      }
+    });
+  </script>
+  
